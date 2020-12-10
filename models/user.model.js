@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: [true, "Password is requied."],
     },
-    profile_image: {
+    avatar: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Media",
     },

@@ -17,6 +17,7 @@ const { isAuth } = require("./middlewares/auth.middleware");
 //Routes
 const authRoute = require("./routes/auth.route");
 const photoRoute = require("./routes/photo.route");
+const profileRoute = require("./routes/profile.route");
 
 const app = express();
 
@@ -45,6 +46,7 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use("/auth", authRoute);
 app.use("/photo", photoRoute);
+app.use("/profile", isAuth, profileRoute);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
