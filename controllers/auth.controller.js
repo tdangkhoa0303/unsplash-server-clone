@@ -7,6 +7,7 @@ const catchAsync = require("../utils/catchAsync");
 const { generateToken, verifyToken } = require("../utils/auth.utils");
 const { basicDetails } = require("../utils/user.utils");
 const AppError = require("../utils/AppError");
+const { getCollections, getPhotos } = require("../factory");
 
 const accessTokenLife = process.env.ACCESS_TOKEN_LIFE;
 const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE;
@@ -94,12 +95,19 @@ const setToken = async (res, user) => {
     httpOnly: true,
   });
 
+  const [photos, collections] = await Promise.all([
+    getPhotos(user._id),
+    getCollections(user._id),
+  ]);
+
   return res.status(200).json({
     status: "success",
     data: {
       user: {
         ...basicDetails(user),
         token: accessToken,
+        photos,
+        collections,
       },
       refreshTTL: process.env.REFRESH_TOKEN_LIFE,
     },

@@ -5,20 +5,18 @@ const {
   createCollection,
   deleteCollection,
   addPhoto,
-  deletePhoto,
-} = require("../controllers/photo.controller");
-
-const multer = require("../middlewares/multer.middleware");
+  removePhoto,
+} = require("../controllers/collection.controller");
 
 router.get("/", getCollections);
 
 router.get("/single", getCollection);
 
-router.post("/", multer.single("cover"), createCollection);
+router.post("/", createCollection);
 
 router.post("/add", addPhoto);
 
-router.post("/delete", deletePhoto);
+router.post("/remove", removePhoto);
 
 router.patch("/:id", deleteCollection);
 

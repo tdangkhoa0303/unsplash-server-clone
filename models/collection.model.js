@@ -11,6 +11,12 @@ const collectionSchema = new mongoose.Schema({
     ref: "Photo",
   },
 
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
   description: {
     type: String,
     trim: true,
@@ -23,3 +29,11 @@ const collectionSchema = new mongoose.Schema({
 
   photos: [{ type: mongoose.Types.ObjectId, ref: "Photo" }],
 });
+
+const Collection = mongoose.model(
+  "Collection",
+  collectionSchema,
+  "collections"
+);
+
+module.exports = Collection;

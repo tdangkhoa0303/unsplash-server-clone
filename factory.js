@@ -5,7 +5,7 @@ const { photoPopulate, collectionPopulate } = require("./utils/populate");
 
 const perPage = process.env.PER_PAGE || 10;
 
-module.exports.getPhotos = (author, page) => {
+module.exports.getPhotos = (author, page = 1) => {
   const query = {};
 
   if (author) query.author = author;
@@ -21,7 +21,7 @@ module.exports.getPhotoById = (id) => {
   return Photo.findById(id).populate(photoPopulate);
 };
 
-module.exports.getCollections = (author, page) => {
+module.exports.getCollections = (author, page = 1) => {
   const query = {};
 
   if (author) query.author = author;
